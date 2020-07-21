@@ -1,7 +1,7 @@
 const { NodeClient } = require('hs-client')
 const express = require('express')
 
-const host = process.env.HOSTNAME || 'localhost'
+const host = process.env.HOST || 'localhost'
 const port = Number(process.env.PORT) || 3100
 
 const hsdNetworkType = process.env.HSD_NETWORK || 'regtest'
