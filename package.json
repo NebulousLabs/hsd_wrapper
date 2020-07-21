@@ -1,0 +1,16 @@
+{
+  "name": "hsd_wrap",
+  "version": "0.1.0",
+  "description": "A simple RESTful wrapper around the HSD daemon.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nebulous Labs",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "hs-client": "0.0.8",
+    "hsd": "^2.1.5"
+  }
+}
