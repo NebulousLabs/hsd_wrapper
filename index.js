@@ -2,11 +2,11 @@ const { NodeClient } = require('hs-client')
 const express = require('express')
 
 const host = process.env.HOSTNAME || 'localhost'
-const port = process.env.PORT || 3100
+const port = Number(process.env.PORT) || 3100
 
 const hsdNetworkType = process.env.HSD_NETWORK || 'regtest'
 const hsdHost = process.env.HSD_HOST || 'localhost'
-const hsdPort = process.env.HSD_PORT || 12037
+const hsdPort = Number(process.env.HSD_PORT) || 13037
 const hsdApiKey = process.env.HSD_API_KEY || 'foo'
 
 const clientOptions = {
@@ -40,5 +40,6 @@ server.use(function (req, res, next) {
 server.listen(port, host, (error) => {
     if (error) throw error
 
-    console.info(`Server listening at http://${host}:${port} (NODE_ENV: ${process.env.NODE_ENV})`)
+    console.info(`HSD Server at ${hsdHost}:${hsdPort}, "${hsdNetworkType}" network.`)
+    console.info(`Server listening at http://${host}:${port}`)
 })
