@@ -25,10 +25,10 @@ const hsdHandler = async (req, res) => {
         console.log(`Received result: ${result}`)
         let resolved
         if (result.result && result.result.records) {
-            const recs = result.result.records
-            for (let i = 0; i < recs.length; i++) {
-                if (recs[i].address) {
-                    resolved = recs[i].address
+            const records = result.result.records
+            for (let i = 0; i < records.length; i++) {
+                if (records[i].address) {
+                    resolved = records[i].address
                     break
                 }
             }
