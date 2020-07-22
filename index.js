@@ -4,11 +4,11 @@ const express = require('express')
 const host = process.env.HOST || 'localhost'
 const port = Number(process.env.PORT) || 3100
 
-const portal = process.env.PORTAL || 'siasky.net'
+const portal = process.env.PORTAL || 'https://siasky.net'
 
 const hsdNetworkType = process.env.HSD_NETWORK || 'regtest'
 const hsdHost = process.env.HSD_HOST || 'localhost'
-const hsdPort = Number(process.env.HSD_PORT) || 13037
+const hsdPort = Number(process.env.HSD_PORT) || 12037
 const hsdApiKey = process.env.HSD_API_KEY || 'foo'
 
 const clientOptions = {
@@ -22,7 +22,7 @@ const client = new NodeClient(clientOptions)
 const hsdHandler = async (req, res) => {
     try {
         const result = await client.execute('getnameresource', [req.params.name])
-        console.log(`Received result: ${result}`)
+        console.log(`Received result: ${JSON.stringify(result)}`)
         let resolved
         if (result.result && result.result.records) {
             const records = result.result.records
@@ -34,9 +34,9 @@ const hsdHandler = async (req, res) => {
             }
         }
         if (isValidSkylink(resolved)) {
-            res.redirect(`https://${portal}/${resolved}`)
+            res.redirect(`${portal}/${resolved}`)
         } else {
-            res.status(404).end()
+            res.sendStatus(404)
         }
     } catch (e) {
         res.status(500).json(e).end()
@@ -50,8 +50,7 @@ function isValidSkylink(link) {
     if (!link || link.length === 0) {
         return false
     }
-    const matches = link.match(SIA_LINK_RE)
-    return !!matches
+    return Boolean(link.match(SIA_LINK_RE))
 }
 
 const server = express()

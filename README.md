@@ -13,7 +13,7 @@ number of environment variables:
 * `HOST` and `PORT`: the host and port on which the wrapper should listen once
 running. Defaults to `localhost:3100`.
 * `PORTAL`: the Skynet portal to be used for skylink resolution. Default to 
-`siasky.net`.
+`https://siasky.net`.
 * `HSD_NETWORK`: The Handshake network to be used. Defaults to `mainnet`.
 * `HSD_HOST` and `HSD_PORT`: Defines where the wrapper can reach a trusted HSD 
 node. If the HSD node is running on the host machine on which the Docker image
@@ -25,6 +25,7 @@ Defaults to `foo`.
 
 ### Example command
 
+On a Mac you can run it like this:
 ```
 docker run --rm -d \
     -p 3100:3100 \
@@ -32,3 +33,9 @@ docker run --rm -d \
     --name hsd_wrapper \
     nebulouslabs/hsd_wrapper
 ```
+
+On Linux you might need to run with Docker Compose in order for the two 
+containers to be able to share a network and talk to each other. An alternative
+is to manually get the docker IP by running 
+`ip -4 addr show docker0 | grep -Po 'inet \K[\d.]+'` and then set the `HSD_HOST`
+to that value.
