@@ -4,7 +4,7 @@ const express = require('express')
 const host = process.env.HOST || 'localhost'
 const port = Number(process.env.PORT) || 3100
 
-const portal = process.env.PORTAL || 'siasky.dev'
+const portal = process.env.PORTAL || 'siasky.net'
 
 const hsdNetworkType = process.env.HSD_NETWORK || 'regtest'
 const hsdHost = process.env.HSD_HOST || 'localhost'
