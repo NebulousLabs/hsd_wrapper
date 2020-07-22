@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:14.5-stretch
 
 WORKDIR "/nsd_wrapper"
 

@@ -21,18 +21,10 @@ const client = new NodeClient(clientOptions)
 
 const hsdHandler = async (req, res) => {
     try {
-        const result = await client.execute('getnameresource', [req.params.name])
-        console.log(`Received result: ${JSON.stringify(result)}`)
-        let resolved
-        if (result.result && result.result.records) {
-            const records = result.result.records
-            for (let i = 0; i < records.length; i++) {
-                if (records[i].address) {
-                    resolved = records[i].address
-                    break
-                }
-            }
-        }
+        const { records } = await client.execute('getnameresource', [req.params.name])
+        console.log(`Received records: ${JSON.stringify(records)}`)
+        let resolved = records?.find(r => Boolean(r.address)).address
+        console.log(`Resolved: ${resolved}`)
         if (isValidSkylink(resolved)) {
             res.redirect(`${portal}/${resolved}`)
         } else {
