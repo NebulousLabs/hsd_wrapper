@@ -4,6 +4,8 @@ const express = require('express')
 const host = process.env.HOST || 'localhost'
 const port = Number(process.env.PORT) || 3100
 
+const portal = process.env.PORTAL || 'siasky.dev'
+
 const hsdNetworkType = process.env.HSD_NETWORK || 'regtest'
 const hsdHost = process.env.HSD_HOST || 'localhost'
 const hsdPort = Number(process.env.HSD_PORT) || 13037
@@ -20,10 +22,36 @@ const client = new NodeClient(clientOptions)
 const hsdHandler = async (req, res) => {
     try {
         const result = await client.execute('getnameresource', [req.params.name])
-        res.json({ result })
+        console.log(`Received result: ${result}`)
+        let resolved
+        if (result.result && result.result.records) {
+            const recs = result.result.records
+            for (let i = 0; i < recs.length; i++) {
+                if (recs[i].address) {
+                    resolved = recs[i].address
+                    break
+                }
+            }
+        }
+        if (isValidSkylink(resolved)) {
+            res.redirect(`https://${portal}/${resolved}`)
+        } else {
+            res.status(404).end()
+        }
     } catch (e) {
         res.status(500).json(e).end()
     }
+}
+
+const SIA_LINK_RE = /^([a-zA-Z0-9-_]{46}.*)$/
+
+// Checks if the given string is a valid Sia link.
+function isValidSkylink(link) {
+    if (!link || link.length === 0) {
+        return false
+    }
+    const matches = link.match(SIA_LINK_RE)
+    return !!matches
 }
 
 const server = express()
