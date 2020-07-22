@@ -68,6 +68,6 @@ server.use(function (req, res, next) {
 server.listen(port, host, (error) => {
     if (error) throw error
 
-    console.info(`HSD Server at ${hsdHost}:${hsdPort}, "${hsdNetworkType}" network.`)
+    console.info(`API will look for HSD Server at ${hsdHost}:${hsdPort}, "${hsdNetworkType}" network.`)
     console.info(`Server listening at http://${host}:${port}`)
 })
