@@ -14,7 +14,7 @@ number of environment variables:
 running. Defaults to `localhost:3100`.
 * `PORTAL`: the Skynet portal to be used for skylink resolution. Default to 
 `https://siasky.net`.
-* `HSD_NETWORK`: The Handshake network to be used. Defaults to `mainnet`.
+* `HSD_NETWORK`: The Handshake network to be used. Defaults to `main`.
 * `HSD_HOST` and `HSD_PORT`: Defines where the wrapper can reach a trusted HSD 
 node. If the HSD node is running on the host machine on which the Docker image
 is being run, use `host.docker.internal` in order to make it possible for the 
