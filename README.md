@@ -1,5 +1,7 @@
 # HSD Wrapper
 
+> :warning: This repo has been archived and moved under the new [SkynetHQ](https://github.com/SkynetHQ) repo [here](https://github.com/SkynetHQ/hsd_wrapper)
+
 This is a thin wrapper for the HSD server. It exposes the `/hsd/:name` endpoint 
 and maps it to the server's `getnameresource` RPC call.
 
